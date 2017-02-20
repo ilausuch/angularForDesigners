@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test 2</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>	
+        
+        <!--
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>	
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bower-angular-translate/2.6.1/angular-translate.min.js"></script>
+        -->
+        
+        <script type="text/javascript" src="../../libs/angular.min.js"></script>	
+        <script type="text/javascript" src="../../libs/angular-translate.min.js"></script>
+        <script src="../../libs/ilArray.min.js"></script>
+        
+        <script src="../../dist/ilAngularForDesigners.js"></script>
+        
+        
+        
+        <script type="text/javascript" src="app.js"></script>
+        <script>
+            
+            
+            
+        </script>
+    
+    </head>
+    <body ng-app="app" ng-controller="MainController as mc" style="padding:2em">
+        
+       <div class="panel panel-default" >
+            <div class="panel-heading">Personal info</div>
+            <div class="panel-body">
+
+                <table class="table">
+                    <tr>
+                        <td>Id</td>
+                        <td>
+                            <input afd name="Id">
+                        </td>
+                        <td>
+                            <span afd name="Id"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>
+                            <input afd name="personalInfo.Name" placeholder="Write your name">
+                        </td>
+                        <td>
+                            <p style="color:blue" afd name="personalInfo.Name"></p>
+                            <p afd>personalInfo.Name</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>LastName</td>
+                        <td>
+                            <input afd name="personalInfo.LastName" placeholder="Write your lastname">
+                        </td>
+                        <td>
+                            <p style="color:blue" afd name="personalInfo.LastName"></p>
+                            <p afd>personalInfo.LastName</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>LastName</td>
+                        <td>
+                            <input afd type="radio" name="personalInfo.gender" value="male" checked> Male<br>
+                            <input afd type="radio" name="personalInfo.gender" value="female"> Female<br>
+                            <input afd type="radio" name="personalInfo.gender" value="other"> Other
+                        </td>
+                        <td>
+                            <p afd>personalInfo.gender</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Country</td>
+                        <td>
+                            <select afd name="contact.country" list="countries"></select> 
+                        </td>
+                        <td>
+                            <span afd>contact.country</span>
+                            <span afd>contact.$country().label</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Translation</td>
+                        <td>
+                            <span>TRANSLATE_THIS</span>
+                        </td>
+                        <td>
+                            <span afd-translate >TRANSLATE_THIS</span>
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+        </div>
+
+        <input type="submit" value="Submit">
+
+
+        <div class="panel panel-default" >
+            <div class="panel-heading">Repeat</div>
+            <div class="panel-body">
+                <div afd-repeat="studies">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" afd>label</div>
+                        <div class="panel-body">
+                            <input afd name="label">
+                            <!--div style="border:1px solid blue">Model: {{afdModel}}</div-->
+                            <ul afd-repeat="teachers">
+                                <li >    
+                                    <span afd>label</span>
+                                    <!--div style="border:1px solid blue">Model: {{afdModel}}</div-->
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Studies</h2>
+         
+        <div afd-repeat="studies">
+            <div class="panel panel-default" >
+                <div class="panel-heading"><span afd>label</span></div>
+                <div class="panel-body">
+                    <p>
+                    <input afd name="label">
+                    </p>
+                    <div afd-repeat="teachers" >                   
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><span afd>label</span></div>
+                                <div class="panel-body">
+                                    <input afd name="label"> - {{afdModel.label}} for {{afdModelParent.label}}
+                                </div>
+                            </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    
+        <ul afd-repeat="studies" style="color:red">
+            <li>
+                    <span afd>label</span>
+                    <ul afd-repeat="teachers">
+                        <li style="color:blue">
+                            <span afd>label</span>
+                        </li>
+                    </ul>
+                </li>
+
+            </li>
+        </ul>
+        
+        <!--
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>		
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"/>	
+        -->
+        <link rel="stylesheet" href="../../libs/bootstrap.min.css"/>		
+	<link rel="stylesheet" href="../../libs/font-awesome.min.css"/>	
+        
+        <link rel="stylesheet" href="styles.css"/>	
+        
+    </body>
+</html>
+
+
