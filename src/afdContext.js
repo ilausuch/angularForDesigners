@@ -1,14 +1,12 @@
 /* global AngularForDesigners */
 
-AngularForDesigners.directive('afd-context', function($compile) {
+AngularForDesigners.directive('afdContext', function($compile) {
     return {
         restrict: 'A',
         compile: function(element, attrs) {
             return {
                 pre: function preLink(scope, iElement, iAttrs) {
                     iElement.attr("ng-controller","afdContextController");
-                    iElement.attr("context",iAttrs["afd-context"]);
-                    
                     iElement.removeAttr("afd-context");
                     $compile(iElement)(scope);
                 },  
@@ -28,22 +26,9 @@ AngularForDesigners.controller("afdContextController", function($rootScope,$scop
         
         $scope.controller=this;
         
-        this.$scope=$scope;
-        this.$parentScope=$scope.$parent;
+        if ($attrs["model"]!=undefined)
+            $scope.afdModel=eval($attrs["model"]);
         
-        $scope.isAfdContextController=true;
-        
-        var ancestor=AngularForDesigners.getAncestorAfdScope($scope);
-        
-        console.debug("*****",$scope);
-        
-        if ($attrs.context!==undefined)
-            $scope.afdContext=eval($attrs.context);
-        else{
-            if (ancestor)
-                $scope.afdContext=ancestor.afdContext;
-        }
-        
-        if ($scope.afdContext===undefined)
-            throw "afdContextController: context field required because this context controller doesn't have any context controller ancestor"; 
+        if ($attrs["data"]!=undefined)
+            $scope.afdData=eval($attrs["data"]);
 });
