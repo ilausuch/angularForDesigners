@@ -10,12 +10,12 @@ var header="\
     MIT LICENSE @2017 Ivan Lausuch <ilausuch@gmail.com>\n\
     Developed at CEU University\n\
 */\n\n\
-var AngularForDesigners=angular.module(\"il.DesignIndependence\", []);\n";
+var AngularForDesigners=angular.module(\"angularForDesigners\", []);\n";
 
 gulp.task('compile', function(){
     return gulp.src('src/*.js')
         .pipe(strip())
-        .pipe(concat('ilAngularForDesigners.js'))
+        .pipe(concat('angularForDesigners.js'))
         .pipe(headerfooter({
             header:header,
             footer:'',
@@ -37,7 +37,7 @@ gulp.task('minimize', function(){
           }))
         .pipe(strip())
         .pipe(uglify())
-        .pipe(concat('ilAngularForDesigners.min.js'))
+        .pipe(concat('angularForDesigners.min.js'))
         .pipe(gulp.dest('dist'));
 });
 

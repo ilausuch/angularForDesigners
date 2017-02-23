@@ -1,13 +1,9 @@
-var app = angular.module('app', ['il.DesignIndependence','pascalprecht.translate']);
+var app = angular.module('app', ['angularForDesigners','pascalprecht.translate']);
 var mc;
 
 app.controller("MainController", function($rootScope,$scope,$timeout,$http,$q){
     mc=this;
     mc.$scope=$scope;
-    
-    $scope.afdData={
-        countries:[{label:"Spain",value:1},{label:"France",value:2}]  
-    };
     
     this.model={
         Id:1234,
@@ -18,7 +14,17 @@ app.controller("MainController", function($rootScope,$scope,$timeout,$http,$q){
         contact:{
             country:undefined,
             $country:function(){
-                return $scope.afdData.countries.getByField(this.country,"value");
+                var found=undefined;
+                var $this=this;
+                
+                $scope.afdData.countries.some(function(country){
+                    if (country.value==$this.country){
+                        found=country;
+                        return true;
+                    }     
+                });
+                
+                return found;
             }
         },
         studies:[
@@ -39,7 +45,11 @@ app.controller("MainController", function($rootScope,$scope,$timeout,$http,$q){
         
     }
    
-    $scope.afdModel=this.model;
+    AngularForDesigners.configure($scope);
+    AngularForDesigners.setData({
+        countries:[{label:"Spain",value:1},{label:"France",value:2}]  
+    });
+    AngularForDesigners.setModel(this.model);
     
 });
 

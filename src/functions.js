@@ -1,5 +1,20 @@
 /* global AngularForDesigners */
 
+AngularForDesigners.configure=function($scope){
+    AngularForDesigners.$scope=$scope;
+}
+
+AngularForDesigners.setModel=function(model){
+    AngularForDesigners.$scope.afdModel=model;
+}
+
+AngularForDesigners.setData=function(data){
+    AngularForDesigners.$scope.afdData=data;
+}
+
+AngularForDesigners.setOperations=function(operations){
+    AngularForDesigners.$scope.afdOperations=operations;
+}
 
 AngularForDesigners.getAttribute=function(iElement,attribute){
     if (Array.isArray(iElement))
