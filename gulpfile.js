@@ -27,14 +27,7 @@ gulp.task('compile', function(){
 });
 
 gulp.task('minimize', function(){
-    return gulp.src('src/*.js')
-        .pipe(headerfooter({
-            header:header,
-            footer:'',
-            filter: function(file){
-                return true;
-            }
-          }))
+    return gulp.src('dist/angularForDesigners.js')
         .pipe(strip())
         .pipe(uglify())
         .pipe(concat('angularForDesigners.min.js'))
