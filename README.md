@@ -39,7 +39,7 @@ This example with a form with user language friendly to get its name, email and 
 
 ## **Basic concepts**
 
-### Models
+### The Model
 
 A model is a javascript object where all values of a form will be stored.  The variable name of AngularForDesigners is `afdModel`
 
@@ -68,7 +68,7 @@ afdModel:{
 }
 ```
 
-### Data object
+### The Data object
 
 A data object is a javascript object that contains lists of objects to use. For instance a list of countries for your comboboxes. The variable name of AngularForDesigners is `afdData`
 
@@ -83,11 +83,35 @@ afdData:{
 }
 ```
 
-### Context
+### The Operations
 
-By default you have a context with one model and one data object. But it is possible to define other contexts. However Repeats use contexts.
+TODO
 
-## **Reference**
+## **Setting up the enviromnet**
+
+### Scope
+First, you must set your scope
+
+```javascript
+AngularForDesigners.configure($scope);
+```
+
+### Model and data
+ 
+```javascript
+//Seting the model (In this case, it is get from current controller)
+AngularForDesigners.setModel(this.model);
+
+//Setting the data
+AngularForDesigners.setData({
+            countries:[{label:"Spain",value:1},{label:"France",value:2}]  
+        });
+```
+
+Note: Yo can change Model every time you need	
+
+
+## **HTML Elements**
 
 ### Inputs
 
@@ -148,14 +172,6 @@ or using modifier name
 
 ```javascript
 	<span name="fieldName"></span>
-```
-
-### Translation
-
-A literal can be translated to user language using `afd-translate`. See Setup section for more information
-
-```javascript
-	<span afd-translate>LITERAL</span>
 ```
 
 ### Repeats or loops
@@ -247,10 +263,41 @@ In this case we are usign bootstrap pannels to show the studies. Title pannel wi
 		</div> 
 	</div>
 </div>
+```	
+
+## **Modifiers**
+
+### afd-show and afd-hide
+
+You can show or hide parts of your HTML using `afd-show` and `afd-hide` than check if a model attribute is true or false.  An attribute can be a function too.
+
+In the next example, user can check if is a foreign student. If it is the case a current center learning input will be showed
+
+The model
+```javascript
+afdModel={
+	foreignStudent:false,
+	currentLearningCenter:undefined
+}
 ```
 
-## Setting up the enviromnet
+The HTML
 
+```HTML
+<p><input afd type="checkbox" name="foreignStudent"> I am studing in other university</p>
+
+<p afd-show="foreignStudent">
+	Where: <input afd name="currentLearningCenter">
+</p>
+```
+
+### Translation
+
+A literal can be translated to user language using `afd-translate`. See Setup section for more information
+
+```javascript
+	<span afd-translate>LITERAL</span>
+```
 
 ## **Angular equivalences**
 
@@ -338,6 +385,9 @@ In angular is:
 		</li>
 	</ul>
 ```
+
+
+
 
 
 
