@@ -11,7 +11,15 @@ AngularForDesigners.directive( 'afdRepeat', function() {
         },
         controller:function($scope,$attrs){
             var field=$attrs["afdRepeat"];
-            $scope.list=eval("$scope.$parent.afdModel."+field);
+            $scope.$parent.$watch("afdModel."+field,function(){
+                try{
+                    $scope.list=eval("$scope.$parent.afdModel."+field);
+                }catch(e){
+                    $scope.list=[];
+                }
+            })
+            
+            //$scope.list=eval("$scope.$parent.afdModel."+field);
             $scope.afdModelParent=$scope.$parent.afdModel;
             $scope.afdData=$scope.$parent.afdData;
         },

@@ -15,8 +15,6 @@ AngularForDesigners.directive('afd', function($compile) {
                                         var config=AngularForDesigners.extractConfiguration(scope, iElement, iAttrs);
 
                                         iElement.attr("field",config.field);
-                    iElement.attr("context",config.context);
-                    iElement.attr("ng-model",config.ngModel);
 
                                         iElement.removeAttr("afd");
 
@@ -61,7 +59,14 @@ AngularForDesigners.directive( 'afdRepeat', function() {
         },
         controller:function($scope,$attrs){
             var field=$attrs["afdRepeat"];
-            $scope.list=eval("$scope.$parent.afdModel."+field);
+            $scope.$parent.$watch("afdModel."+field,function(){
+                try{
+                    $scope.list=eval("$scope.$parent.afdModel."+field);
+                }catch(e){
+                    $scope.list=[];
+                }
+            })
+
             $scope.afdModelParent=$scope.$parent.afdModel;
             $scope.afdData=$scope.$parent.afdData;
         },
@@ -95,10 +100,54 @@ AngularForDesigners.directive( 'afdTranscope', function() {
         }
     };
 }); 
+AngularForDesigners.directive( 'afdShow', function($compile) {
+    return {
+        restrict: 'A',
+        compile: function(element, attrs) {
+            return {
+                pre: function preLink(scope, iElement, iAttrs) {
+
+                                        var config=AngularForDesigners.extractConfiguration(scope, iElement, iAttrs);
+
+                                        iElement.attr("ng-show",config.model+"."+iAttrs.afdShow);
+                    iElement.removeAttr("afd-show");
+
+                                        $compile(iElement)(scope);
+                },  
+                post: function postLink(scope, iElement, iAttrs, controller) { 
+                }
+            };
+        }
+    };
+
+});
+
+AngularForDesigners.directive( 'afdHide', function($compile) {
+    return {
+        restrict: 'A',
+        compile: function(element, attrs) {
+            return {
+                pre: function preLink(scope, iElement, iAttrs) {
+
+                                        var config=AngularForDesigners.extractConfiguration(scope, iElement, iAttrs);
+
+                                        iElement.attr("ng-hide",config.model+"."+iAttrs.afdHide);
+                    iElement.removeAttr("afd-hide");
+
+                                        $compile(iElement)(scope);
+                },  
+                post: function postLink(scope, iElement, iAttrs, controller) { 
+                }
+            };
+        }
+    };
+
+});
 AngularForDesigners.config={
     directives:{
         INPUT:{
             preCompiler:function(iElement,iAttrs,config){
+                iElement.attr("ng-model",config.ngModel);
             }
         },
         SELECT:{
@@ -108,7 +157,9 @@ AngularForDesigners.config={
             },
             attrRequired:["list"],
             preCompiler:function(iElement,iAttrs,config){
-                var label=iAttrs.label;
+                iElement.attr("ng-model",config.ngModel);
+
+                                    var label=iAttrs.label;
                 if (label===undefined)
                     label=this.defaults.label;
 
@@ -118,6 +169,13 @@ AngularForDesigners.config={
 
                                 iElement.attr("ng-options",
                     "item."+label+" for item in afdData."+iAttrs.list+" track by item."+value);
+
+                            }
+        },
+        A:{
+            attrRequired:["href"],
+            preCompiler:function(iElement,iAttrs,config){
+                iElement.attr("href","{{afdModel."+iAttrs.href+"}}");
 
                             }
         },
@@ -137,8 +195,16 @@ AngularForDesigners.setModel=function(model){
     AngularForDesigners.$scope.afdModel=model;
 }
 
+AngularForDesigners.getModel=function(){
+    return AngularForDesigners.$scope.afdModel;
+}
+
 AngularForDesigners.setData=function(data){
     AngularForDesigners.$scope.afdData=data;
+}
+
+AngularForDesigners.getData=function(){
+    return AngularForDesigners.$scope.afdData;
 }
 
 AngularForDesigners.setOperations=function(operations){
@@ -179,9 +245,11 @@ AngularForDesigners.extractConfigurationModel=function(scope,iElement,iAttrs){
 };
 
 AngularForDesigners.extractConfigurationNgModel=function(config){
-    return config.model+"."+config.field;
-
-    };
+    if (config.field!=undefined)
+        return config.model+"."+config.field;
+    else
+        return "";
+};
 
 
 AngularForDesigners.extractConfiguration=function(scope,iElement,iAttrs){

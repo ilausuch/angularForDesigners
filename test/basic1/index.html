@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>	
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>	
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bower-angular-translate/2.6.1/angular-translate.min.js"></script>
         
         <!--
@@ -90,8 +90,7 @@
         </div>
 
         <input type="submit" value="Submit">
-
-
+        
         <div class="panel panel-default" >
             <div class="panel-heading">Repeat</div>
             <div class="panel-body">
@@ -100,12 +99,10 @@
                         <div class="panel-heading" afd>label</div>
                         <div class="panel-body">
                             <input afd name="label">
-                            <!--div style="border:1px solid blue">Model: {{afdModel}}</div-->
                             <ul afd-repeat="teachers">
                                 <li >    
                                     <span afd>label</span>
-                                    <!--div style="border:1px solid blue">Model: {{afdModel}}</div-->
-
+                                    
                                 </li>
                             </ul>
                         </div>
@@ -145,6 +142,26 @@
                 </ul>
             </li>
         </ul>
+        
+        <p><a afd href="files[0].url" target="_blank">Link</a></p>
+        <p><a afd href="files[0].url" target="_blank"><span afd>files[0].text</span></a></p>
+        
+        List of links
+        <ul afd-repeat="files">
+            <li>
+                <a afd href="url" target="_blank"><span afd>text</span></a>
+            </li>
+        </ul>
+        
+        List of links
+        <ul afd-repeat="level2.files">
+            <li>
+                <a afd href="url" target="_blank"><span afd>text</span></a>
+            </li>
+        </ul>
+        
+        <p afd-show="show" afd style="color:blue">personalInfo.Name</p>
+        <p afd-hide="show" afd style="color:red">personalInfo.Name</p>
         
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>		
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"/>	

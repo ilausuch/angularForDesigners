@@ -8,8 +8,16 @@ AngularForDesigners.setModel=function(model){
     AngularForDesigners.$scope.afdModel=model;
 }
 
+AngularForDesigners.getModel=function(){
+    return AngularForDesigners.$scope.afdModel;
+}
+
 AngularForDesigners.setData=function(data){
     AngularForDesigners.$scope.afdData=data;
+}
+
+AngularForDesigners.getData=function(){
+    return AngularForDesigners.$scope.afdData;
 }
 
 AngularForDesigners.setOperations=function(operations){
@@ -50,8 +58,10 @@ AngularForDesigners.extractConfigurationModel=function(scope,iElement,iAttrs){
 };
 
 AngularForDesigners.extractConfigurationNgModel=function(config){
-    return config.model+"."+config.field;
-    
+    if (config.field!=undefined)
+        return config.model+"."+config.field;
+    else
+        return "";
 };
 
 

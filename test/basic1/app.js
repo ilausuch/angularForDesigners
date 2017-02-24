@@ -7,9 +7,23 @@ app.controller("MainController", function($rootScope,$scope,$timeout,$http,$q){
     
     this.model={
         Id:1234,
-
+        show:true,
         personalInfo:{
             Name:"Ivan"
+        },
+        files:[
+            {
+                url:"http://www.google.com",
+                text:"Go to google"
+            }
+        ],
+        level2:{
+            files:[
+                {
+                    url:"http://www.google.com",
+                    text:"Go to google"
+                }
+            ],
         },
         contact:{
             country:undefined,
@@ -17,7 +31,7 @@ app.controller("MainController", function($rootScope,$scope,$timeout,$http,$q){
                 var found=undefined;
                 var $this=this;
                 
-                $scope.afdData.countries.some(function(country){
+                AngularForDesigners.getData().countries.some(function(country){
                     if (country.value==$this.country){
                         found=country;
                         return true;
@@ -47,9 +61,16 @@ app.controller("MainController", function($rootScope,$scope,$timeout,$http,$q){
    
     AngularForDesigners.configure($scope);
     AngularForDesigners.setData({
-        countries:[{label:"Spain",value:1},{label:"France",value:2}]  
-    });
-    AngularForDesigners.setModel(this.model);
+            countries:[{label:"Spain",value:1},{label:"France",value:2}]  
+        }); 
+    
+    
+    var $this=this;
+    $timeout(function(){
+         AngularForDesigners.setModel($this.model);
+    },1000);
+    
+   
     
 });
 

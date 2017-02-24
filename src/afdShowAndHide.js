@@ -1,6 +1,4 @@
-/* global AngularForDesigners */
-
-AngularForDesigners.directive('afd', function($compile) {
+AngularForDesigners.directive( 'afdShow', function($compile) {
     return {
         restrict: 'A',
         compile: function(element, attrs) {
@@ -9,11 +7,8 @@ AngularForDesigners.directive('afd', function($compile) {
                     
                     var config=AngularForDesigners.extractConfiguration(scope, iElement, iAttrs);
                     
-                    iElement.attr("field",config.field);
-                    
-                    iElement.removeAttr("afd");
-                    
-                    config.directive.preCompiler(iElement,iAttrs,config);
+                    iElement.attr("ng-show",config.model+"."+iAttrs.afdShow);
+                    iElement.removeAttr("afd-show");
                     
                     $compile(iElement)(scope);
                 },  
@@ -22,18 +17,21 @@ AngularForDesigners.directive('afd', function($compile) {
             };
         }
     };
+
 });
 
-AngularForDesigners.directive('afdDebug', function($compile) {
+AngularForDesigners.directive( 'afdHide', function($compile) {
     return {
         restrict: 'A',
         compile: function(element, attrs) {
             return {
                 pre: function preLink(scope, iElement, iAttrs) {
                     
-                    console.debug(scope,iElement,iAttrs);
+                    var config=AngularForDesigners.extractConfiguration(scope, iElement, iAttrs);
                     
-                    iElement.removeAttr("afd-debug");
+                    iElement.attr("ng-hide",config.model+"."+iAttrs.afdHide);
+                    iElement.removeAttr("afd-hide");
+                    
                     $compile(iElement)(scope);
                 },  
                 post: function postLink(scope, iElement, iAttrs, controller) { 
@@ -41,4 +39,5 @@ AngularForDesigners.directive('afdDebug', function($compile) {
             };
         }
     };
+
 });
